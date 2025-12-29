@@ -56,4 +56,9 @@
 * Exception handling for scenarios where requestFocus (or other gesture behaviors) interfere with the gesture arena.
 
 ## 1.1.4
-* Fixed an issue where an exception occurring on a different screen could affect the bounceTapper gesture arena logic. Version 1.1.3 has been retracted, and it is recommended to use version 1.1.4 instead.    
+* Fixed an issue where an exception occurring on a different screen could affect the bounceTapper gesture arena logic. Version 1.1.3 has been retracted, and it is recommended to use version 1.1.4 instead.
+
+## 1.1.5
+* Fixed critical bug where `blockTapOnLongPressEvent` parameter was not being utilized, causing `onTap` to fire after long press events.
+* Added proper timer cancellation in `onPointerUp` to prevent race conditions with long press detection.
+* Improved state management for long press gesture handling.
