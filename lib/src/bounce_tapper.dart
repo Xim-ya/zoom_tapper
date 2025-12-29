@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -225,6 +224,8 @@ class _BounceTapperState extends State<BounceTapper>
             return;
           }
 
+          _longPressTimer?.cancel();
+
           await _controller.forward();
           await Future.delayed(widget.delayedDurationBeforeGrow);
 
@@ -233,7 +234,8 @@ class _BounceTapperState extends State<BounceTapper>
           Future.microtask(() async {
             if (_isLongPressed && widget.onLongPressUp != null) {
               await Future.value(widget.onLongPressUp!());
-            } else if (widget.onTap != null) {
+            } else if (widget.onTap != null &&
+                !(widget.blockTapOnLongPressEvent && _isLongPressed)) {
               await Future.value(widget.onTap!());
             }
           });
